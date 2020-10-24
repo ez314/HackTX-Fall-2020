@@ -31,9 +31,13 @@
     border-width: 3px;
 }
 
-.team1-players{
-    position: absolute;
-    text-align: center;
+.team1-header{
+    border-style: solid;
+    border-color: #000000;
+    border-top: 2px;
+    border-left: 2px;
+    border-right: 2px;
+    padding: 5px;
 }
 
 .team2{
@@ -47,9 +51,13 @@
     border-left: 3px;
 }
 
-.team2-players{
-    position: absolute;
-    text-align: center;
+.team2-header{
+    border-style: solid;
+    border-color: #000000;
+    border-top: 2px;
+    border-left: 2px;
+    border-right: 2px;
+    padding: 5px;
 }
 
 .game-room-header{
@@ -100,8 +108,30 @@
 
 
 .welcome-room{
-    background-color: e0e0eb;
     width: 480px;
+    height: 480px;
+    background-color: #e0e0eb;
     margin: auto;
     text-align: center;
+    margin-top: 100px;
+    position: relative;
+}
+
+.welcome{
+    position: absolute;
+    margin-top: 100px;
+
+}
+
+#reg-form{
+    position: absolute;
+    margin: auto;
+    margin-top: 200px;
+}
+
+#submitUsername{
+    position: absolute;
+    margin-top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
