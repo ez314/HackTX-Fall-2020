@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
 <body>
 
 
 <div class="lobby-room">
     <div class="lobby">Lobby</div>
     <div class="lobby-container">
-        <div class="team1"></div>
-            <div class="team1-players">Team 1</div>
-        <div class="team2"></div>
-            <div class="team2-players">Team 2</div>
+        <div class="team1"><div id="team1-players"><b>Team 1</b></div></div>
+            
+
+        <div class="team2"><div id="team2-players"><b>Team 2</b></div></div>
+            
 
     </div>
 </div>

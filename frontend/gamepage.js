@@ -64,6 +64,20 @@
         container.appendChild(buttonX)
         
       }
+      dataFromFirestore = doc.data()
+      var wordLists = dataFromFirestore.wordlist;
+      for (var i = 0; i<wordLists.length; i++){
+
+        if(wordLists[i].solved == true){
+  
+          var check = document.getElementById("sec" + wordLists[i].word)
+          if(check != null){
+          document.getElementById("sec" + wordLists[i].word).className= "game-room itemCompleted"
+          document.getElementById(wordLists[i].word).remove();
+          }
+        }
+  
+      }
         console.log("Document data:", doc.data());
     } else {
         // doc.data() will be undefined in this case
