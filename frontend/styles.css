@@ -31,9 +31,12 @@
     border-width: 3px;
 }
 
-.team1-players{
+.team1-header{
     position: absolute;
     text-align: center;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px;
 }
 
 .team2{
