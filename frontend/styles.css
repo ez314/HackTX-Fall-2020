@@ -3,13 +3,41 @@ body{
 }
 
 .lobby-room{
-    width: 300px;
+    width: 480px;
 }
 
-.game-room{
-    width: 300px;
+.game-room-header{
+    margin: auto;
+    width: 480px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
 }
+.game-room-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    background-color: #e0e0eb;
+    padding: 10px;
+    margin: auto;
+    width: 480px;
+
+}
+
+.game-room {
+    background-color: rgba(201, 192, 192, 0.8);
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;
+}
+
+.item{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
 
 .welcome-room{
-    width: 300px;
+    width: 480px;
 }
