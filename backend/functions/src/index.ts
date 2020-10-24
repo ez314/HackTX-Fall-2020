@@ -28,6 +28,8 @@ app.post('/register', async (req, res) => {
     const lobby = req.body['lobby'];
     const username = req.body['username'];
     let team: string;
+    let team1Size = 0;
+    let team2Size = 0;
 
 
     if (!lobby || !username) {
@@ -64,7 +66,9 @@ app.post('/register', async (req, res) => {
         // create lobby
         await db.collection('lobbies').doc(lobby).set({
             started: -1,
-            ended: -1
+            ended: -1,
+            team1Size: 0,
+            team2Size: 0
         });
 
         // create teams
@@ -76,7 +80,10 @@ app.post('/register', async (req, res) => {
             wordlist: wordlist,
             players: []
         });
-
+    }
+    else {
+        team1Size = lobbyDoc.data()?.team1Size;
+        team2Size = lobbyDoc.data()?.team2Size;
     }
 
     const playerDoc = await db.collection(`lobbies/${lobby}/players`).doc(username).get();
@@ -88,40 +95,45 @@ app.post('/register', async (req, res) => {
         });
     }
     else {
+        // determine team
+        if (team1Size <= team2Size) {
+            team = 'Team_1';
+        }
+        else {
+            team = 'Team_2';
+        }
+
         // add them to the users collection
         await db.collection(`lobbies/${lobby}/players`).doc(username).set({
             username: username,
-            imagesFound: []
+            imagesFound: [],
+            team: team
         });
-        // add them to a team
-        await db.collection(`lobbies/${lobby}/teams`).doc('Team_1').get().then(async (team1Doc) => {
-            await db.collection(`lobbies/${lobby}/teams`).doc('Team_2').get().then(async (team2Doc) => {
-                const team1Players = team1Doc.data()?.players;
-                const team2Players = team2Doc.data()?.players;
-                if (team1Players.length <= team2Players.length) {
-                    team1Players.push(username);
-                    await db.collection(`lobbies/${lobby}/teams`).doc('Team_1').update({
-                        players: team1Players
-                    });
-                    team = 'Team 1';
-                }
-                else {
-                    team2Players.push(username);
-                    await db.collection(`lobbies/${lobby}/teams`).doc('Team_2').update({
-                        players: team2Players
-                    });   
-                    team = 'Team 2';             
-                }
-            });
 
-        });
+        // add them to the team's players
+        await db.collection(`lobbies/${lobby}/teams`).doc(team).update({
+            players: admin.firestore.FieldValue.arrayUnion(username)
+        })
+
+        // increment the team size
+        let teamIncrement: any;
+        if (team === 'Team_1') {
+            teamIncrement = {
+                team1Size: admin.firestore.FieldValue.increment(1)
+            }
+        }
+        else {
+            teamIncrement = {
+                team2Size: admin.firestore.FieldValue.increment(1)
+            }
+        }
+        await db.collection('lobbies').doc(lobby).update(teamIncrement);
 
         return res.status(200).json({
-            message: `${username} has been added to team ${team!}!`,
+            message: `${username} has been added to team ${team}!`,
+            team: team,
             newLobby: newLobby,
             success: true
         });
     }
 });
-
-app.post('/')
