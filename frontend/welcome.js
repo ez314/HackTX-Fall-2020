@@ -9,14 +9,25 @@ document.getElementById("submitUsername").onclick = async function(){
 
     const url = "https://us-central1-hacktx-293504.cloudfunctions.net/game/register";
 
-    const response = await fetch(url, {
+    fetch(url, {
         method: 'POST', 
         mode: 'cors', 
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
+    }).then(response => response.json()).then( data => {
+        console.log(data);
 
-    console.log(response.json());
+        if (data.success){
+            location.href = "lobbyRoom.html?" + userInput.value;
+        }
+        else {
+            document.getElementById("errorMessage").innerHTML = data.message;
+        }
+
+
+
+
+    });
 }
