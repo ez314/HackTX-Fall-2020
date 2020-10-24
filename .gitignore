@@ -1,1 +1,4 @@
 backend/.firebaserc
+backend/ui-debug.log
+backend/functions/.runtimeconfig.json
+backend/functions/ui-debug.log
