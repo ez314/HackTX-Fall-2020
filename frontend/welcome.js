@@ -1,6 +1,6 @@
 const lobby = "lobbyWeb1";
 
-document.getElementById("submitUsername").onclick = function(){
+document.getElementById("submitUsername").onclick = async function(){
 
     const data = {
         username: userInput.value,

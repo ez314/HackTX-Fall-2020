@@ -3,6 +3,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 
 //initialize firebase inorder to access its services
 admin.initializeApp(functions.config().firebase);
@@ -11,6 +12,7 @@ admin.initializeApp(functions.config().firebase);
 const app = express();
 
 //add the path to receive request and set json as bodyParser to process the body 
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw());
@@ -137,3 +139,34 @@ app.post('/register', async (req, res) => {
         });
     }
 });
+
+/*
+app.post('/upload', async (req, res) => {
+    const imageUrl = req.body['img']
+    const username = req.body['usr']
+    const lobby = req.body['lobby']
+    const word = req.body['word']
+    let team: string;
+
+    // make sure everything was passed in
+    if (!imageUrl || !username || !lobby || !word) {
+        return res.status(400).json({
+            message: 'You need an image URL in img, a username in usr, a lobby in lobby, and the target word in word',
+            success: false
+        });
+    }
+
+    /// validation ///
+    
+    // first make sure the lobby and player exist
+    const playerDoc = await db.collection(`lobbies/${lobby}/players`).doc(username).get();
+    if (!playerDoc.exists) {
+        return res.status(404)
+    }
+    team = playerDoc.data()!.team;
+
+    // then make sure the word exists and is unsolved
+    const teamDoc = await db.collection(`lobbies/${lobby}/teams/${team}`)
+    
+});
+*/
