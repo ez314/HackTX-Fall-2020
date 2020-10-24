@@ -1,9 +1,55 @@
-body{
-
-}
-
 .lobby-room{
     width: 480px;
+    margin: auto;
+}
+.lobby{
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+}
+.lobby-container{
+    width: 480px;
+    min-height: 80vh;
+    display: flex;
+}
+
+.play-button{
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.team1{
+    width: 50vw;
+    text-align: center;
+    font-size: 25px;
+    position: relative;
+    background-color: #e0e0eb;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px;
+}
+
+.team1-players{
+    position: absolute;
+    text-align: center;
+}
+
+.team2{
+    width: 50vw;
+    text-align: center;
+    font-size: 25px;
+    position: relative;
+    background-color: #e0e0eb;
+    border-style: solid;
+    border-color: #000000;
+    border-left: 3px;
+}
+
+.team2-players{
+    position: absolute;
+    text-align: center;
 }
 
 .game-room-header{
@@ -54,5 +100,8 @@ body{
 
 
 .welcome-room{
+    background-color: e0e0eb;
     width: 480px;
+    margin: auto;
+    text-align: center;
 }
