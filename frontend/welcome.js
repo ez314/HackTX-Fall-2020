@@ -20,7 +20,7 @@ document.getElementById("submitUsername").onclick = async function(){
         console.log(data);
 
         if (data.success){
-            location.href = "lobbyRoom.html?" + userInput.value;
+            location.href = "lobbyRoom.html?user=" + userInput.value;
         }
         else {
             document.getElementById("errorMessage").innerHTML = data.message;

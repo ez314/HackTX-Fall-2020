@@ -1,7 +1,9 @@
 var url = document.URL;
-var userName = url.substring(url.indexOf("?") + 1);
-console.log(userName);
 
+const urlParams = new URLSearchParams(window.location.search);
+const userName = urlParams.get('user');
+console.log(userName);
+var teamnumber = "" 
 //create get function for user info from DB
 
 var firebaseConfig = {
@@ -33,7 +35,11 @@ team1Ref.get().then(function(doc) {
         document.getElementById("team1-players").innerHTML = "<b>Team 1</b>"
 
         for (var i = 0; i< dataFromFirestore.players.length; i++){
-
+        if (dataFromFirestore.players[i] == userName){
+            console.log("you are on TEAM 1")
+            teamnumber="Team_1"
+        }
+        
         document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + dataFromFirestore.players[i]
         }
     } else {
@@ -53,7 +59,14 @@ team2Ref.get().then(function(doc) {
         document.getElementById("team2-players").innerHTML = "<b>Team 2</b>"
         
 
+
         for (var i = 0; i< dataFromFirestore.players.length; i++){
+            
+            console.log("RAW" + dataFromFirestore.players[i])
+        if (dataFromFirestore.players[i] == userName){
+            console.log("you are on TEAM 2")
+            teamnumber="Team_2"
+        }
         document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + dataFromFirestore.players[i]
         }
     } else {
@@ -90,4 +103,36 @@ db.collection("lobbies/lobbyWeb1/teams").doc("Team_2")
 
         document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + dataFromFirestore.players[i]
         }
+});
+
+document.getElementById("beginGame").onclick = function() {
+
+
+    db.collection("lobbies").doc("lobbyWeb1").update({
+        started: 0
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+
+
+}
+
+db.collection("lobbies").doc("lobbyWeb1")
+.onSnapshot(function(doc) {
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: ", doc.data());
+    dataFromFirestore = doc.data();
+    console.log(dataFromFirestore.started)
+
+    if(dataFromFirestore.started != -1){
+    console.log("GAME STARTING")
+    location.href = "gamePage.html?user=" + userName + "&teamnumber=" + teamnumber;
+
+    }
+
 });
