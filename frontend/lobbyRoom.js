@@ -32,7 +32,6 @@ team1Ref.get().then(function(doc) {
         
         dataFromFirestore = doc.data();
         document.getElementById("team1-players").innerHTML = ""
-        document.getElementById("team1-players").innerHTML = "<b>Team 1</b>"
 
         for (var i = 0; i< dataFromFirestore.players.length; i++){
         if (dataFromFirestore.players[i] == userName){
@@ -56,9 +55,6 @@ team2Ref.get().then(function(doc) {
         
         dataFromFirestore = doc.data();
         document.getElementById("team2-players").innerHTML = ""
-        document.getElementById("team2-players").innerHTML = "<b>Team 2</b>"
-        
-
 
         for (var i = 0; i< dataFromFirestore.players.length; i++){
             
