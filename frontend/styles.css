@@ -31,9 +31,24 @@ body{
     font-size: 30px;
 }
 
-.item{
+.itemMissing{
     grid-column-start: 1;
     grid-column-end: 3;
+    border-style: solid;
+    border-color: #ff0000;
+    border-width: 3px; 
+}
+
+.itemCompleted{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-style: solid;
+    border-color: #00ff00;
+    border-width: 3px; 
+}
+
+.buttonUploaded {
+    pointer-events: none;
 }
 
 
