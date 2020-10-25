@@ -5,6 +5,7 @@ const userName = urlParams.get('user');
 const lobbyName = urlParams.get('lobby');
 const teamnumber = urlParams.get('teamnumber');
 console.log(userName + teamnumber);
+const now = Date.now(); // Unix timestamp in milliseconds
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -25,7 +26,7 @@ var wordList = [];
 var db = firebase.firestore();
 
 db.collection("lobbies").doc(lobbyName).update({
-  started: 0
+  started: parseInt(now) + 5 * 60 * 1000
 })
   .then(function () {
     console.log("Document successfully written!");
@@ -59,13 +60,21 @@ lobbiesRef.get().then(function (doc) {
       buttonX.onclick = function (event) { this.value = null }
       buttonX.onchange = function (event) {
 
+        var blackbackground = document.createElement('div')
+        blackbackground.id = "blackbackground"
+        document.body.prepend(blackbackground)
+
+        tempWORD = event.target.id
+
+        blackbackground.innerHTML = "<br><br>" + tempWORD + " is uploading, please wait..."
+
+
         var re = /(?:\.([^.]+))?$/;
 
         const files = event.target.files
         const word = event.target.id
         const formData = new FormData()
         const formDataLink = new FormData()
-        const now = Date.now(); // Unix timestamp in milliseconds
 
 
         console.log(word)
