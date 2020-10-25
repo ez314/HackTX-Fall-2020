@@ -27,13 +27,16 @@ export const game = functions.https.onRequest(app);
 
 app.post('/register', async (req, res) => {
     const wordListSize = 20;
-    const wordbank = ['Coffee', 'Water bottle', 'Football', 'Toy', 
+    const wordbank = [
+        'Coffee', 'Water bottle', 'Football', 'Toy', 
         'T-shirt', 'Fan', 'Apple', 'Cauliflower', 'Towel', 'Avocado', 
         'Doll', 'Melon', 'Spinach', 'Sunglasses', 'Action figure', 'Toast', 
         'Pepperoni', 'Baseball', 'Ball', 'Sweater', 'Bicycle', 'Smile', 
         'Knee', 'Headphones', 'Hot dog', 'Boot', 'Shorts', 'Screwdriver', 
         'Pecan', 'Battery', 'Laptop', 'Monitor', 'Naruto', 'Zipper', 
-        'Carabiner', 'Button', 'Computer mouse', ]
+        'Carabiner', 'Button', 'Computer mouse', 'Chocolate', 'Dime',
+        'Bottled water', 'Calculator', 'Stapler'
+    ]
     const lobby = req.body['lobby'];
     const username = req.body['username'];
     let team: string;
