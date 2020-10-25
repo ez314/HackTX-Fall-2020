@@ -136,6 +136,8 @@ lobbiesRef.get().then(function (doc) {
         if (check != null) {
           document.getElementById("sec" + wordLists[i].word).className = "game-room itemCompleted"
           
+          //where do i find the user who submitted the correct answer?
+          //alright lmemme push
           //ADD WHOEVER SUBMITTED IT HERE
           document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
           
@@ -167,6 +169,10 @@ db.collection("lobbies/" + lobbyName + "/teams").doc(teamnumber)
         var check = document.getElementById("sec" + wordLists[i].word)
         if (check != null) {
           document.getElementById("sec" + wordLists[i].word).className = "game-room itemCompleted"
+        
+          //ADD WHOEVER SUBMITTED IT HERE
+          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
+          
           if (document.getElementById(wordLists[i].word) != null) {
             document.getElementById(wordLists[i].word).remove();
           }
