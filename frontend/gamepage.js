@@ -53,6 +53,12 @@ lobbiesRef.get().then(function (doc) {
       sectionX.id = "sec" + dataFromFirestore.wordlist[i].word
       sectionX.innerHTML = dataFromFirestore.wordlist[i].word
 
+      var fileLabel = document.createElement('label');
+      fileLabel.htmlFor = dataFromFirestore.wordlist[i].word;
+      fileLabel.className = "custom-file-upload";
+      fileLabel.id= "label" + dataFromFirestore.wordlist[i].word;
+      fileLabel.innerHTML = "custom upload";
+
       var buttonX = document.createElement('input')
       buttonX.type = "file";
       buttonX.className = "fileUploadButton";
@@ -116,6 +122,7 @@ lobbiesRef.get().then(function (doc) {
       };
 
       container.appendChild(sectionX)
+      container.appendChild(fileLabel)
       container.appendChild(buttonX)
 
     }
@@ -128,6 +135,10 @@ lobbiesRef.get().then(function (doc) {
         var check = document.getElementById("sec" + wordLists[i].word)
         if (check != null) {
           document.getElementById("sec" + wordLists[i].word).className = "game-room itemCompleted"
+          
+          //ADD WHOEVER SUBMITTED IT HERE
+          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
+          
           document.getElementById(wordLists[i].word).remove();
         }
       }
