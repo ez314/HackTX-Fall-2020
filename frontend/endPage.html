@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
-    <script src="endPage.js"></script>
-<body>
-
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+  <script src="endPage.js"></script>
+  <body>
     <div class="end-page-room">
-        <div class="lobby">Lobby ( ) results</div>
-        <div class = "lobby"> Winner: Team ( ) </div>
-        <div class="lobby-container">
-            <div class="team1">
-                <div class="team1-header"><b>Team 1</b></div>
-                <div id="team1-players">
-
-                </div>
-            </div>
-            <div class="team2">
-                <div class="team2-header"><b>Team 2</b></div>
-                <div id="team2-players">
-    
-                </div>
-            </div>
+      <div id="lobby" class="lobby">Lobby ( ) results</div>
+      <div id="winner" class="lobby">Winner: Team ( )</div>
+      <div class="lobby-container">
+        <div class="team1">
+          <div class="team1-header"><b>Team 1</b></div>
+          <div id="team1-players"></div>
         </div>
+        <div class="team2">
+          <div class="team2-header"><b>Team 2</b></div>
+          <div id="team2-players"></div>
+        </div>
+      </div>
     </div>
-
- 
-
-</body>
+  </body>
+  <script>
+    document.getElementById("lobby").innerHTML = "Lobby: " + lobbyName;
+  </script>
 </html>
