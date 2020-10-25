@@ -56,6 +56,7 @@ lobbiesRef.get().then(function (doc) {
       var fileLabel = document.createElement('label');
       fileLabel.htmlFor = dataFromFirestore.wordlist[i].word;
       fileLabel.className = "custom-file-upload";
+      fileLabel.id= "label" + dataFromFirestore.wordlist[i].word;
       fileLabel.innerHTML = "custom upload";
 
       var buttonX = document.createElement('input')
@@ -134,6 +135,10 @@ lobbiesRef.get().then(function (doc) {
         var check = document.getElementById("sec" + wordLists[i].word)
         if (check != null) {
           document.getElementById("sec" + wordLists[i].word).className = "game-room itemCompleted"
+          
+          //ADD WHOEVER SUBMITTED IT HERE
+          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
+          
           document.getElementById(wordLists[i].word).remove();
         }
       }
@@ -170,3 +175,5 @@ db.collection("lobbies/" + lobbyName + "/teams").doc(teamnumber)
 
     }
   });
+
+
