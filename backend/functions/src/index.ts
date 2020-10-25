@@ -1,5 +1,6 @@
 //import libraries
 import * as functions from 'firebase-functions';
+import * as vision from '@google-cloud/vision';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
 import * as bodyParser from "body-parser";
@@ -26,7 +27,13 @@ export const game = functions.https.onRequest(app);
 
 app.post('/register', async (req, res) => {
     const wordListSize = 20;
-    const wordbank = ['Coffee', 'Water bottle', 'Football', 'Toy', 'T-Shirt', 'Fan', 'Apple', 'Cauliflower', 'Towel', 'Avocado', 'Doll', 'Melon', 'Spinach', 'Sunglasses', 'Action figure', 'Toast', 'Pepperoni', 'Baseball', 'Ball', 'Sweater', 'Bicycle', 'Smile', 'Knee', 'Headphones', 'Hot Dog', 'Boot', 'Shorts', 'Screwdriver', 'Pecan', 'Battery', 'Laptop', 'Monitor', 'Naruto']
+    const wordbank = ['Coffee', 'Water bottle', 'Football', 'Toy', 
+        'T-shirt', 'Fan', 'Apple', 'Cauliflower', 'Towel', 'Avocado', 
+        'Doll', 'Melon', 'Spinach', 'Sunglasses', 'Action figure', 'Toast', 
+        'Pepperoni', 'Baseball', 'Ball', 'Sweater', 'Bicycle', 'Smile', 
+        'Knee', 'Headphones', 'Hot dog', 'Boot', 'Shorts', 'Screwdriver', 
+        'Pecan', 'Battery', 'Laptop', 'Monitor', 'Naruto', 'Zipper', 
+        'Carabiner', 'Button', 'Computer mouse', ]
     const lobby = req.body['lobby'];
     const username = req.body['username'];
     let team: string;
@@ -140,13 +147,12 @@ app.post('/register', async (req, res) => {
     }
 });
 
-/*
+
 app.post('/upload', async (req, res) => {
-    const imageUrl = req.body['img']
-    const username = req.body['usr']
+    const imageUrl = req.body['imageurl']
+    const username = req.body['username']
     const lobby = req.body['lobby']
     const word = req.body['word']
-    let team: string;
 
     // make sure everything was passed in
     if (!imageUrl || !username || !lobby || !word) {
@@ -161,12 +167,89 @@ app.post('/upload', async (req, res) => {
     // first make sure the lobby and player exist
     const playerDoc = await db.collection(`lobbies/${lobby}/players`).doc(username).get();
     if (!playerDoc.exists) {
-        return res.status(404)
+        return res.status(404).json({
+            message: 'Player or lobby does not exist!',
+            success: false
+        });
     }
-    team = playerDoc.data()!.team;
+    const team = playerDoc.data()!.team;
+
+    const teamDoc = db.collection(`lobbies/${lobby}/teams`).doc(team);
 
     // then make sure the word exists and is unsolved
-    const teamDoc = await db.collection(`lobbies/${lobby}/teams/${team}`)
+    const wordlist = await (await teamDoc.get()).data()!.wordlist; // we know the team exists for sure
+    const wordIndex = wordlist.map( (x: { word: any; }) => {return x.word}).indexOf(word);
+    const wordObj = wordlist[wordIndex];
+    if (wordObj === undefined) {
+        return res.status(404).json({
+            message: `${word} was not found in the word list!`,
+            success: false
+        });
+    }
+    if (wordObj.solved) {
+        return res.status(404).json({
+            message: `${word} has already been solved!`,
+            solved: wordObj.solver,
+            solution: wordObj.solutionUrl,
+            success: false
+        });    
+    }
+    
+    // at this point, the lobby, player, and word exist and the word is currently unsolved.
+    // we check if this is a valid solution and return the result
+    const client = new vision.ImageAnnotatorClient();
+
+    try {
+        const [result] = await client.labelDetection(imageUrl);
+        const labels = result.labelAnnotations;
+
+        const match = labels?.find(x => x.description === word);
+
+        // congrats it worked
+        if (match) {
+            // update array element
+            const newWordObj = wordObj;
+            newWordObj.solved = true;
+            newWordObj.solver = username;
+            newWordObj.solutionUrl = imageUrl;
+
+            wordlist[wordIndex] = newWordObj;
+            
+            await teamDoc.update({
+                wordlist: wordlist
+            })
+
+            // out with the old and in with the new, async
+            /*
+            await teamDoc.update({
+                wordlist: admin.firestore.FieldValue.arrayRemove(wordObj)
+            }).then( async () => {
+                await teamDoc .update({
+                    wordlist: admin.firestore.FieldValue.arrayUnion(newWordObj)
+                });
+            });
+            */
+
+
+            // finish with success message
+            return res.status(200).json({
+                accepted: true,
+                success: true
+            });
+        } else {
+            // don't update anything, return bad answer
+            return res.status(200).json({
+                accepted: false,
+                success: true
+            });
+        }
+    }
+    catch (e) {
+        return res.status(500).json({
+            message: `Something went wrong on the server, please try again ${e}`,
+            success: false
+        });
+    }
+
     
 });
-*/
