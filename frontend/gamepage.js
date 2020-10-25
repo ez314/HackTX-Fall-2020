@@ -61,20 +61,45 @@ lobbiesRef.get().then(function (doc) {
 
         var re = /(?:\.([^.]+))?$/;
 
+
+
+
         const files = event.target.files
+        const word = event.target.id
         const formData = new FormData()
         const formDataLink = new FormData()
         const now = Date.now(); // Unix timestamp in milliseconds
 
+
+        console.log(word)
         var ext = re.exec(files[0].name)[1];
         formData.append('photo', files[0], String(now) + "." + ext)
-
+        const googleVision = {
+          username: userName,
+          imageurl: "http://fferli.com/photos/" + String(now) + "." + ext,
+          lobby: lobbyName,
+          word: word
+        }
+        console.log(googleVision)
         fetch('http://35.202.2.142:3000/upload', {
           method: 'POST',
           body: formData
         })
           .then(r => r.json().then(data => ({ status: r.status, body: data })))
           .then(obj => console.log(obj))
+          .then(
+
+            fetch('https://us-central1-hacktx-293504.cloudfunctions.net/game/upload', {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(googleVision) // body data type must match "Content-Type" header
+            }).then(response => response.json()).then(data => {
+              console.log(data);
+            }))
+
           .catch(error => {
             console.error(error)
           })
