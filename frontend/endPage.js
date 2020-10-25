@@ -19,52 +19,79 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var dataFromFirestore;
+var data;
 var wordList = [];
 
 var db = firebase.firestore();
 
+var team1Ref = db.collection("lobbies/" + lobbyName + "/teams").doc("Team_1");
+var team2Ref = db.collection("lobbies/" + lobbyName + "/teams").doc("Team_2");
 
 
-team1Ref.get().then(function (doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
+// function that populates the tables
+async function populate(teamRef, documentId) {
+    teamRef.get().then(function (doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
 
-        dataFromFirestore = doc.data();
-        document.getElementById("team1-players").innerHTML = ""
+            let stats = new Map();
+    
+            doc.data().wordlist.forEach(wordObj => {
+                if (wordObj.solved) {
+                    if (!stats.has(wordObj.solver)) {
+                        console.log(`First time for ${wordObj.solver}`);
+                        stats.set(wordObj.solver, 0);
+                    }
+                    stats.set(wordObj.solver, stats.get(wordObj.solver)+1);
+                }
+            });
 
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
-            if (dataFromFirestore.players[i] == userName) {
-                console.log("you are on TEAM 1")
-                teamnumber = "Team_1"
-            }
+            // create array sorted by points
+            let sortedStats = Array.from(stats, ([key, value]) => ({username: key, score: value}));
+            sortedStats.sort((a, b) => {
+                return (a.score > b.score ? -1 : a.score < b.score ? 1 : 0)
+            });
+            console.log(stats);
+            console.log(sortedStats);
 
-            document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + dataFromFirestore.players[i]
+            sortedStats.forEach((x) => {
+                document.getElementById(documentId).innerHTML += `<br><b>${x.username}</b><br>Score: ${x.score}`;
+            })
+    
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
         }
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function (error) {
-    console.log("Error getting document:", error);
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+// build points based off of user data
+team1Ref.get().then(function (doc) {
+    populate(team1Ref, 'team1-players');
 });
 
+team2Ref.get().then(function (doc) {
+    populate(team2Ref, 'team2-players');
+});
+
+/*
 team2Ref.get().then(function (doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
 
-        dataFromFirestore = doc.data();
-        document.getElementById("team2-players").innerHTML = ""
-
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
-
-            console.log("RAW" + dataFromFirestore.players[i])
-            if (dataFromFirestore.players[i] == userName) {
-                console.log("you are on TEAM 2")
-                teamnumber = "Team_2"
+        doc.data().wordlist.forEach(wordObj => {
+            if (wordObj.solved) {
+                if (!team2Stats.has(wordObj.solver)) {
+                    team2Stats.set(wordObj.solver, 0);
+                }
+                team2Stats[wordObj.solver]++;
             }
-            document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + dataFromFirestore.players[i]
-        }
+        });
+
+        console.log(team2Stats);
+
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -72,4 +99,4 @@ team2Ref.get().then(function (doc) {
 }).catch(function (error) {
     console.log("Error getting document:", error);
 });
-
+*/

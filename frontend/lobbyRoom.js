@@ -7,7 +7,7 @@ console.log(userName);
 var teamnumber = ""
 //create get function for user info from DB
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyCFO5lRTHMW8N0QG2r0gILho9o-vzlUzNw",
     authDomain: "hacktx-293504.firebaseapp.com",
     databaseURL: "https://hacktx-293504.firebaseio.com",
@@ -19,7 +19,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-var dataFromFirestore;
+var data;
 var wordList = [];
 
 var db = firebase.firestore();
@@ -31,16 +31,16 @@ team1Ref.get().then(function (doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
 
-        dataFromFirestore = doc.data();
+        data = doc.data();
         document.getElementById("team1-players").innerHTML = ""
 
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
-            if (dataFromFirestore.players[i] == userName) {
+        for (var i = 0; i < data.players.length; i++) {
+            if (data.players[i] == userName) {
                 console.log("you are on TEAM 1")
                 teamnumber = "Team_1"
             }
 
-            document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + dataFromFirestore.players[i]
+            document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + data.players[i]
         }
     } else {
         // doc.data() will be undefined in this case
@@ -54,17 +54,17 @@ team2Ref.get().then(function (doc) {
     if (doc.exists) {
         console.log("Document data:", doc.data());
 
-        dataFromFirestore = doc.data();
+        data = doc.data();
         document.getElementById("team2-players").innerHTML = ""
 
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
+        for (var i = 0; i < data.players.length; i++) {
 
-            console.log("RAW" + dataFromFirestore.players[i])
-            if (dataFromFirestore.players[i] == userName) {
+            console.log("RAW" + data.players[i])
+            if (data.players[i] == userName) {
                 console.log("you are on TEAM 2")
                 teamnumber = "Team_2"
             }
-            document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + dataFromFirestore.players[i]
+            document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + data.players[i]
         }
     } else {
         // doc.data() will be undefined in this case
@@ -78,12 +78,12 @@ db.collection("lobbies/" + lobbyName + "/teams").doc("Team_1")
     .onSnapshot(function (doc) {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ", doc.data());
-        dataFromFirestore = doc.data();
+        data = doc.data();
         document.getElementById("team1-players").innerHTML = ""
 
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
+        for (var i = 0; i < data.players.length; i++) {
 
-            document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + dataFromFirestore.players[i]
+            document.getElementById("team1-players").innerHTML = document.getElementById("team1-players").innerHTML + "<br>" + data.players[i]
         }
     });
 
@@ -91,12 +91,12 @@ db.collection("lobbies/" + lobbyName + "/teams").doc("Team_2")
     .onSnapshot(function (doc) {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ", doc.data());
-        dataFromFirestore = doc.data();
+        data = doc.data();
         document.getElementById("team2-players").innerHTML = ""
 
-        for (var i = 0; i < dataFromFirestore.players.length; i++) {
+        for (var i = 0; i < data.players.length; i++) {
 
-            document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + dataFromFirestore.players[i]
+            document.getElementById("team2-players").innerHTML = document.getElementById("team2-players").innerHTML + "<br>" + data.players[i]
         }
     });
 
@@ -121,10 +121,10 @@ db.collection("lobbies").doc(lobbyName)
     .onSnapshot(function (doc) {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ", doc.data());
-        dataFromFirestore = doc.data();
-        console.log(dataFromFirestore.started)
+        data = doc.data();
+        console.log(data.started)
 
-        if (dataFromFirestore.started != -1) {
+        if (data.started != -1) {
             console.log("GAME STARTING")
             location.href = "gamePage.html?user=" + userName + "&teamnumber=" + teamnumber + "&lobby=" + lobbyName;
 
