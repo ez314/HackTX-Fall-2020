@@ -1,180 +1,170 @@
-.lobby-room{
-    width: 480px;
-    margin: auto;
+.lobby-room {
+  width: 480px;
+  margin: auto;
 }
-.lobby{
-    text-align: center;
-    font-weight: bold;
-    font-size: 35px;
+.lobby {
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
 }
-.lobby-container{
-    width: 480px;
-    min-height: 80vh;
-    display: flex;
+.lobby-container {
+  width: 480px;
+  min-height: 80vh;
+  display: flex;
 }
 
-.play-button{
-    margin: auto;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 5px 10px;
-    font-size: 20px;
-    color: #fff;
-    outline: none;
-    border: none;
-    background-color: #3227c4;
-    box-shadow: 0 3px #999;
-    border-radius: 10px;
+.play-button {
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #fff;
+  outline: none;
+  border: none;
+  background-color: #3227c4;
+  box-shadow: 0 3px #999;
+  border-radius: 10px;
 }
 .play-button:hover {
-    background-color: #350f7c;
+  background-color: #350f7c;
 }
 
-.play-button:active{
-    background-color: #0e1075;
-    box-shadow: 0 3px #666;
+.play-button:active {
+  background-color: #0e1075;
+  box-shadow: 0 3px #666;
 }
 
-.team1{
-    width: 50vw;
-    text-align: center;
-    font-size: 25px;
-    position: relative;
-    background-color: #e0e0eb;
-    border-style: solid;
-    border-color: #000000;
-    border-width: 3px;
+.team1 {
+  width: 50vw;
+  text-align: center;
+  font-size: 25px;
+  position: relative;
+  background-color: #e0e0eb;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 3px;
 }
 
-.team1-header{
-    border-style: solid;
-    border-color: #000000;
-    border-top: 2px;
-    border-left: 2px;
-    border-right: 2px;
-    padding: 5px;
+.team1-header {
+  border-style: solid;
+  border-color: #000000;
+  border-top: 2px;
+  border-left: 2px;
+  border-right: 2px;
+  padding: 5px;
 }
 
-.team2{
-    width: 50vw;
-    text-align: center;
-    font-size: 25px;
-    position: relative;
-    background-color: #e0e0eb;
-    border-style: solid;
-    border-color: #000000;
-    border-left: 3px;
+.team2 {
+  width: 50vw;
+  text-align: center;
+  font-size: 25px;
+  position: relative;
+  background-color: #e0e0eb;
+  border-style: solid;
+  border-color: #000000;
+  border-left: 3px;
 }
 
-.team2-header{
-    border-style: solid;
-    border-color: #000000;
-    border-top: 2px;
-    border-left: 2px;
-    border-right: 2px;
-    padding: 5px;
+.team2-header {
+  border-style: solid;
+  border-color: #000000;
+  border-top: 2px;
+  border-left: 2px;
+  border-right: 2px;
+  padding: 5px;
 }
 
-#game-room-header{
-    margin: auto;
-    width: 480px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 35px;
+#game-room-header {
+  margin: auto;
+  width: 480px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
 }
-.game-room-container{
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-    background-color: #e0e0eb;
-    padding: 10px;
-    margin: auto;
-    width: 480px;
-
+.game-room-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  background-color: #e0e0eb;
+  padding: 10px;
+  margin: auto;
+  width: 480px;
 }
 
 .game-room {
-    background-color: rgba(201, 192, 192, 0.8);
-    text-align: center;
-    padding: 20px;
-    font-size: 30px;
+  background-color: rgba(201, 192, 192, 0.8);
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;
 }
 
-.itemMissing{
-    grid-column-start: 1;
-    grid-column-end: 3;
-    border-style: solid;
-    border-color: #ff0000;
-    border-width: 3px; 
+.itemMissing {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-style: solid;
+  border-color: #ff0000;
+  border-width: 3px;
 }
 
-.itemCompleted{
-    grid-column-start: 1;
-    grid-column-end: 3;
-    border-style: solid;
-    border-color: #00ff00;
-    border-width: 3px; 
+.itemCompleted {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-style: solid;
+  border-color: #00ff00;
+  border-width: 3px;
 }
 
 .buttonUploaded {
-    pointer-events: none;
+  pointer-events: none;
 }
 
-
-
-.welcome-room{
-    width: 480px;
-    height: 480px;
-    background-color: #e0e0eb;
-    margin: auto;
-    text-align: center;
-    margin-top: 100px;
-    position: relative;
-<<<<<<< HEAD
-    box-shadow: 5px 5px;
-=======
-    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
->>>>>>> 3f2765406c682ad9231c9a20059cbe1aa22bc4de
+.welcome-room {
+  width: 480px;
+  height: 480px;
+  background-color: #e0e0eb;
+  margin: auto;
+  text-align: center;
+  margin-top: 100px;
+  position: relative;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
 }
 
-.welcome{
-    position: absolute;
-    margin-top: 100px;
-    width: 480px;
-
-
+.welcome {
+  position: absolute;
+  margin-top: 100px;
+  width: 480px;
 }
 
-#reg-form{
-    position: absolute;
-    margin: auto;
-    margin-top: 200px;
-    width: 480px;
-    height: 210px;
+#reg-form {
+  position: absolute;
+  margin: auto;
+  margin-top: 200px;
+  width: 480px;
+  height: 210px;
 }
 
-.submit-button{
-    position: absolute;
-    margin-top: 300px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 15px;
-    font-size: 20px;
-    color: #fff;
-    outline: none;
-    border: none;
-    background-color: #3227c4;
-    box-shadow: 0 5px #999;
-    border-radius: 10px;
+.submit-button {
+  position: absolute;
+  margin-top: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 15px;
+  font-size: 20px;
+  color: #fff;
+  outline: none;
+  border: none;
+  background-color: #3227c4;
+  box-shadow: 0 5px #999;
+  border-radius: 10px;
 }
 
 .submit-button:hover {
-    background-color: #350f7c;
+  background-color: #350f7c;
 }
 
-.submit-button:active{
-    background-color: #0e1075;
-    box-shadow: 0 3px #666;
-
+.submit-button:active {
+  background-color: #0e1075;
+  box-shadow: 0 3px #666;
 }
