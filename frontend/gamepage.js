@@ -53,6 +53,7 @@ console.log(userName+teamnumber);
         sectionX.innerHTML = dataFromFirestore.wordlist[i].word
 
         var buttonX = document.createElement('input')
+        buttonX.class = "fileUploadButton";
         buttonX.type = "file";
         buttonX.id = dataFromFirestore.wordlist[i].word
         buttonX.onchange = function(event){
