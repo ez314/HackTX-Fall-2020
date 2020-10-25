@@ -76,7 +76,7 @@
     padding: 5px;
 }
 
-.game-room-header{
+#game-room-header{
     margin: auto;
     width: 480px;
     text-align: center;
@@ -131,12 +131,18 @@
     text-align: center;
     margin-top: 100px;
     position: relative;
+<<<<<<< HEAD
     box-shadow: 5px 5px;
+=======
+    box-shadow: 0 5px 25px rgba(0,0,0,0.25);
+>>>>>>> 3f2765406c682ad9231c9a20059cbe1aa22bc4de
 }
 
 .welcome{
     position: absolute;
     margin-top: 100px;
+    width: 480px;
+
 
 }
 
@@ -144,7 +150,8 @@
     position: absolute;
     margin: auto;
     margin-top: 200px;
-    
+    width: 480px;
+    height: 210px;
 }
 
 .submit-button{

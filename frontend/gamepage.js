@@ -1,4 +1,11 @@
-  // Your web app's Firebase configuration
+var url = document.URL;
+
+const urlParams = new URLSearchParams(window.location.search);
+const userName = urlParams.get('user');
+const teamnumber = urlParams.get('teamnumber');
+console.log(userName+teamnumber);
+
+ // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyCFO5lRTHMW8N0QG2r0gILho9o-vzlUzNw",
     authDomain: "hacktx-293504.firebaseapp.com",
@@ -16,10 +23,22 @@
 
   var db = firebase.firestore();
 
-  var lobbiesRef = db.collection("lobbies/Lobby1/teams").doc("Team_1");
+  db.collection("lobbies").doc("lobbyWeb1").update({
+    started: 0
+})
+.then(function() {
+    console.log("Document successfully written!");
+})
+.catch(function(error) {
+    console.error("Error writing document: ", error);
+});
+
+  var lobbiesRef = db.collection("lobbies/lobbyWeb1/teams").doc(teamnumber);
   
   lobbiesRef.get().then(function(doc) {
     if (doc.exists) {
+
+      document.getElementById("game-room-header").innerHTML = "<b>welcome to the game room <br> you are on " + teamnumber + "</b>"
 
       dataFromFirestore = doc.data()
 
@@ -87,7 +106,7 @@
     console.log("Error getting document:", error);
 });
 
-db.collection("lobbies/Lobby1/teams").doc("Team_1")
+db.collection("lobbies/lobbyWeb1/teams").doc(teamnumber)
 .onSnapshot(function(doc) {
     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
     console.log(source, " data: ", doc.data());
