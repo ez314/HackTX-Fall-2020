@@ -55,6 +55,7 @@ lobbiesRef.get().then(function (doc) {
 
       var buttonX = document.createElement('input')
       buttonX.type = "file";
+      buttonX.className = "fileUploadButton";
       buttonX.id = dataFromFirestore.wordlist[i].word
       buttonX.onchange = function (event) {
 

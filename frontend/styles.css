@@ -78,7 +78,7 @@
 
 #game-room-header {
   margin: auto;
-  width: 480px;
+  width: 90%;
   text-align: center;
   font-weight: bold;
   font-size: 35px;
@@ -90,7 +90,7 @@
   background-color: #e0e0eb;
   padding: 10px;
   margin: auto;
-  width: 480px;
+  width: 90%;
 }
 
 .game-room {
@@ -116,8 +116,9 @@
   border-width: 3px;
 }
 
-.buttonUploaded {
-  pointer-events: none;
+.fileUploadButton {
+  text-align: center;
+  margin: auto;
 }
 
 .welcome-room {
