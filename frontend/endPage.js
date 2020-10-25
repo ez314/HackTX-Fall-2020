@@ -6,7 +6,6 @@ const lobbyName = urlParams.get('lobby');
 const teamnumber = urlParams.get('teamnumber');
 console.log(userName + teamnumber);
 
-
 // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyCFO5lRTHMW8N0QG2r0gILho9o-vzlUzNw",
@@ -95,27 +94,4 @@ db.collection("lobbies").doc(lobbyName)
 
 
     });
-/*
-team2Ref.get().then(function (doc) {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
 
-        doc.data().wordlist.forEach(wordObj => {
-            if (wordObj.solved) {
-                if (!team2Stats.has(wordObj.solver)) {
-                    team2Stats.set(wordObj.solver, 0);
-                }
-                team2Stats[wordObj.solver]++;
-            }
-        });
-
-        console.log(team2Stats);
-
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function (error) {
-    console.log("Error getting document:", error);
-});
-*/

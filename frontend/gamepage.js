@@ -40,7 +40,7 @@ var lobbiesRef = db.collection("lobbies/" + lobbyName + "/teams").doc(teamnumber
 lobbiesRef.get().then(function (doc) {
   if (doc.exists) {
 
-    document.getElementById("game-room-header").innerHTML = "<b>welcome to the game room <br> you are on " + teamnumber + "</b>"
+    document.getElementById("game-room-header").innerHTML = "Search for your items <br> You are on Team " + teamnumber.replace( /^\D+/g, '') + "</b>"
 
     dataFromFirestore = doc.data()
 
@@ -57,7 +57,7 @@ lobbiesRef.get().then(function (doc) {
       fileLabel.htmlFor = dataFromFirestore.wordlist[i].word;
       fileLabel.className = "custom-file-upload";
       fileLabel.id= "label" + dataFromFirestore.wordlist[i].word;
-      fileLabel.innerHTML = "custom upload";
+      fileLabel.innerHTML = "Upload Image";
 
       var buttonX = document.createElement('input')
       buttonX.type = "file";
@@ -72,7 +72,7 @@ lobbiesRef.get().then(function (doc) {
 
         tempWORD = event.target.id
 
-        blackbackground.innerHTML = "<br><br>" + tempWORD + " is uploading, please wait..."
+        blackbackground.innerHTML = "<br><br> Your picture of <br>" + tempWORD + "<br>is processing<br> Please wait..."
 
 
         var re = /(?:\.([^.]+))?$/;
@@ -139,7 +139,9 @@ lobbiesRef.get().then(function (doc) {
           //where do i find the user who submitted the correct answer?
           //alright lmemme push
           //ADD WHOEVER SUBMITTED IT HERE
-          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
+
+
+          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by " + wordLists[i].solver;
           
           document.getElementById(wordLists[i].word).remove();
         }
@@ -169,9 +171,9 @@ db.collection("lobbies/" + lobbyName + "/teams").doc(teamnumber)
         var check = document.getElementById("sec" + wordLists[i].word)
         if (check != null) {
           document.getElementById("sec" + wordLists[i].word).className = "game-room itemCompleted"
-        
+          
           //ADD WHOEVER SUBMITTED IT HERE
-          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by ";
+          document.getElementById("label" + dataFromFirestore.wordlist[i].word).innerHTML = "Submitted by " + wordLists[i].solver;
           
           if (document.getElementById(wordLists[i].word) != null) {
             document.getElementById(wordLists[i].word).remove();

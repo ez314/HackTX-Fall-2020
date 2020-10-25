@@ -8,6 +8,7 @@
     <div class="end-page-room">
       <div id="lobby" class="lobby">Lobby ( ) results</div>
       <div id="winner" class="lobby">Winner: Team ( )</div>
+      <button id="beginGame" class="play-button">Play again</button>
       <div class="lobby-container">
         <div class="team1">
           <div class="team1-header"><b>Team 1</b></div>
@@ -22,5 +23,10 @@
   </body>
   <script>
     document.getElementById("lobby").innerHTML = "Lobby: " + lobbyName;
+    document.getElementById("beginGame").onclick = function () {
+
+    location.href = "http://www.fferli.com";
+
+    }
   </script>
 </html>
