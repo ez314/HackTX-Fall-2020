@@ -53,6 +53,11 @@ lobbiesRef.get().then(function (doc) {
       sectionX.id = "sec" + dataFromFirestore.wordlist[i].word
       sectionX.innerHTML = dataFromFirestore.wordlist[i].word
 
+      var fileLabel = document.createElement('label');
+      fileLabel.htmlFor = dataFromFirestore.wordlist[i].word;
+      fileLabel.className = "custom-file-upload";
+      fileLabel.innerHTML = "custom upload";
+
       var buttonX = document.createElement('input')
       buttonX.type = "file";
       buttonX.className = "fileUploadButton";
@@ -116,6 +121,7 @@ lobbiesRef.get().then(function (doc) {
       };
 
       container.appendChild(sectionX)
+      container.appendChild(fileLabel)
       container.appendChild(buttonX)
 
     }
