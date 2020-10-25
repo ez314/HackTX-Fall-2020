@@ -1,3 +1,12 @@
+@font-face {
+  font-family: SFBold;
+  src: url("fonts/SF-Pro-Display-Bold.otf");
+}
+@font-face {
+  font-family: SFMed;
+  src: url("fonts/SF-Pro-Display-Medium.otf");
+}
+
 .lobby-room {
   width: 480px;
   margin: auto;
@@ -122,42 +131,77 @@
 }
 
 .welcome-room {
-  width: 480px;
-  height: 480px;
-  background-color: #e0e0eb;
-  margin: auto;
-  text-align: center;
-  margin-top: 100px;
-  position: relative;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-}
-
-.welcome {
   position: absolute;
-  margin-top: 100px;
-  width: 480px;
-}
-
-#reg-form {
-  position: absolute;
-  margin: auto;
-  margin-top: 200px;
-  width: 480px;
-  height: 210px;
-}
-
-.submit-button {
-  position: absolute;
-  margin-top: 20px;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: SFBold;
+  font-size: 3vw;
+  text-align: center;
+}
+@media screen and (max-width: 1000px) {
+  .welcome-room {
+    width: 80%;
+    font-family: SFBold;
+    font-size: 8vw;
+    text-align: center;
+  }
+  #userLobbyInput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  #userInput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+}
+
+#player-name {
+  font-family: SFMed;
+  font-size: 1.5vw;
+}
+
+#userLobbyInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#userInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#errorMessage {
+  font-family: SFMed;
+  font-size: 2vw;
+}
+.submit-button {
+  width: 100%;
   padding: 10px 15px;
   font-size: 20px;
   color: #fff;
   outline: none;
   border: none;
   background-color: #3227c4;
-  box-shadow: 0 5px #999;
   border-radius: 10px;
 }
 
@@ -184,4 +228,9 @@
   z-index: 10;
   text-align: center;
   font-size: 150px;
+}
+
+#timerDiv {
+  text-align: center;
+  font-size: 50px;
 }

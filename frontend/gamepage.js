@@ -164,3 +164,5 @@ db.collection("lobbies/" + lobbyName + "/teams").doc(teamnumber)
 
     }
   });
+
+

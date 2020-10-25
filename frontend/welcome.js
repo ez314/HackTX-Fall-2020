@@ -26,8 +26,5 @@ document.getElementById("submitUsername").onclick = async function () {
             document.getElementById("errorMessage").innerHTML = data.message;
         }
 
-
-
-
     });
 }
