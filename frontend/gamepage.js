@@ -120,7 +120,9 @@ db.collection("lobbies/lobbyWeb1/teams").doc(teamnumber)
         var check = document.getElementById("sec" + wordLists[i].word)
         if(check != null){
         document.getElementById("sec" + wordLists[i].word).className= "game-room itemCompleted"
+        if(document.getElementById(wordLists[i].word) != null){
         document.getElementById(wordLists[i].word).remove();
+        }
         }
       }
 

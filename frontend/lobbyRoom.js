@@ -79,7 +79,6 @@ db.collection("lobbies/lobbyWeb1/teams").doc("Team_1")
     console.log(source, " data: ", doc.data());
     dataFromFirestore = doc.data();
         document.getElementById("team1-players").innerHTML = ""
-        document.getElementById("team1-players").innerHTML = "<b>Team 1</b>"
 
         for (var i = 0; i< dataFromFirestore.players.length; i++){
 
@@ -93,7 +92,6 @@ db.collection("lobbies/lobbyWeb1/teams").doc("Team_2")
     console.log(source, " data: ", doc.data());
     dataFromFirestore = doc.data();
         document.getElementById("team2-players").innerHTML = ""
-        document.getElementById("team2-players").innerHTML = "<b>Team 2</b>"
 
         for (var i = 0; i< dataFromFirestore.players.length; i++){
 
