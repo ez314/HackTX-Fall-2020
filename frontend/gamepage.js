@@ -103,11 +103,13 @@ lobbiesRef.get().then(function (doc) {
               },
               body: JSON.stringify(googleVision) // body data type must match "Content-Type" header
             }).then(response => response.json()).then(data => {
+              blackbackground.remove();
               alert(data.accepted ? word + " accepted!" : word + " rejected :(");
               console.log(data);
             }))
 
           .catch(error => {
+            blackbackground.remove();
             console.error(error)
           })
 
