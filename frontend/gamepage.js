@@ -45,7 +45,6 @@ lobbiesRef.get().then(function (doc) {
 
     for (var i = 0; i < dataFromFirestore.wordlist.length; i++) {
 
-
       var container = document.getElementById("game-room-container")
 
       var sectionX = document.createElement('div')
@@ -53,61 +52,96 @@ lobbiesRef.get().then(function (doc) {
       sectionX.id = "sec" + dataFromFirestore.wordlist[i].word
       sectionX.innerHTML = dataFromFirestore.wordlist[i].word
 
+      var submitbuttonX = document.createElement('button')
+      submitbuttonX.id = dataFromFirestore.wordlist[i].word
+      submitbuttonX.className = "submitbuttonX"
+      submitbuttonX.innerHTML = "Upload Image"
+
       var buttonX = document.createElement('input')
       buttonX.type = "file";
       buttonX.className = "fileUploadButton";
-      buttonX.id = dataFromFirestore.wordlist[i].word
-      buttonX.onchange = function (event) {
+      buttonX.id = dataFromFirestore.wordlist[i].word + "file"
 
-        var re = /(?:\.([^.]+))?$/;
+      submitbuttonX.onclick = function (event) {
+
+        var blackbackground = document.createElement('div')
+        blackbackground.id = "blackbackground"
+        document.body.prepend(blackbackground)
+
+        tempWORD = event.target.id
+
+        blackbackground.innerHTML = "<br><br>Upload image for " + tempWORD
+
+        blackbackground.appendChild(buttonX)
+
+        var submitbuttonY = document.createElement('button')
+        submitbuttonY.className = "submitbuttonX"
+        submitbuttonY.innerHTML = "Upload Image"
 
 
+        blackbackground.appendChild(submitbuttonY)
 
 
-        const files = event.target.files
-        const word = event.target.id
-        const formData = new FormData()
-        const formDataLink = new FormData()
-        const now = Date.now(); // Unix timestamp in milliseconds
+        submitbuttonY.onclick = function (event) {
+          var re = /(?:\.([^.]+))?$/;
+
+          if (buttonX.files.length == 0) {
+            blackbackground.remove();
+
+          } else {
 
 
-        console.log(word)
-        var ext = re.exec(files[0].name)[1];
-        formData.append('photo', files[0], String(now) + "." + ext)
-        const googleVision = {
-          username: userName,
-          imageurl: "http://fferli.com/photos/" + String(now) + "." + ext,
-          lobby: lobbyName,
-          word: word
-        }
-        console.log(googleVision)
-        fetch('http://35.202.2.142:3000/upload', {
-          method: 'POST',
-          body: formData
-        })
-          .then(r => r.json().then(data => ({ status: r.status, body: data })))
-          .then(obj => console.log(obj))
-          .then(
+            const files = buttonX.files
+            const word = tempWORD
+            const formData = new FormData()
+            const formDataLink = new FormData()
+            const now = Date.now(); // Unix timestamp in milliseconds
 
-            fetch('https://us-central1-hacktx-293504.cloudfunctions.net/game/upload', {
+
+            console.log(word)
+            var ext = re.exec(files[0].name)[1];
+            formData.append('photo', files[0], String(now) + "." + ext)
+            const googleVision = {
+              username: userName,
+              imageurl: "http://fferli.com/photos/" + String(now) + "." + ext,
+              lobby: lobbyName,
+              word: word
+            }
+            console.log(googleVision)
+            fetch('http://35.202.2.142:3000/upload', {
               method: 'POST',
-              mode: 'cors',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(googleVision) // body data type must match "Content-Type" header
-            }).then(response => response.json()).then(data => {
-              console.log(data);
-            }))
+              body: formData
+            })
+              .then(r => r.json().then(data => ({ status: r.status, body: data })))
+              .then(obj => console.log(obj))
+              .then(
 
-          .catch(error => {
-            console.error(error)
-          })
+                fetch('https://us-central1-hacktx-293504.cloudfunctions.net/game/upload', {
+                  method: 'POST',
+                  mode: 'cors',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(googleVision) // body data type must match "Content-Type" header
+                }).then(response => response.json()).then(data => {
+                  console.log(data);
+                  blackbackground.remove();
+                }))
 
-      };
+              .catch(error => {
+                console.error(error)
+                blackbackground.remove();
+              })
+
+          };
+
+        }
+
+      }
 
       container.appendChild(sectionX)
-      container.appendChild(buttonX)
+      container.appendChild(submitbuttonX)
+
 
     }
     dataFromFirestore = doc.data()

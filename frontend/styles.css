@@ -169,3 +169,19 @@
   background-color: #0e1075;
   box-shadow: 0 3px #666;
 }
+
+.submitbuttonX {
+  width: auto;
+}
+
+#blackbackground {
+  background-color: lightblue;
+  width: 100%;
+  height: 200vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  text-align: center;
+  font-size: 150px;
+}
